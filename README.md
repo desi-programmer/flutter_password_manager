@@ -1,25 +1,25 @@
 # Flutter Password Manager
 
-# TODO
-A Flutter Password Manager With Local SQFLITE Database.
+Password manager
+    - Support Local Storage Only as of now
 
-1. Add Delete
-2. Add Update
-3. Add Reset Password Option
-## Features
+Security
+    - need to re-authenticate every time app is launched
+        - Won't be visible in recent - activity
+    - Local Auth ( Bio )
+    - Database is encrypted 
+    - Passwords are encrypted
+    - App Level security
 
-	1. Local Storage
-	2. Password Reset
-	3. Reset Password
-	4. Can Add Your Own API
+# Screenshots
 
-## TODO
+![Text](screenshots/ss1.png "Screenshot 1")
+![Text](screenshots/ss2.png "Screenshot 2")
+![Text](screenshots/ss3.png "Screenshot 3")
+![Text](screenshots/ss4.png "Screenshot 4")
+![Text](screenshots/ss5.png "Screenshot 5")
 
-	1. Add Delete
-	2. Add Update
-	3. Add Reset Password Option
-	4. Add Password Reset Questions
-	5. Add Create A Password Option
+
 
 ## SOCIAL
 
@@ -28,20 +28,7 @@ A Flutter Password Manager With Local SQFLITE Database.
 [Gitlab](https://gitlab.com/desiprogrammer)
 [Github](https://github.com/desi-programmer)
 
-# password_manager
-
-Password manager
-    - Support Local Storage Only
-
-Security
-    - need to re-authenticate every time app is launched
-        - Won't be visible in recent - activity
-    - Local Auth ( Bio )
-    - Database is encrypted 
-    - App Level security
-
 # Data
     - type
     - username/email
     - password
-	
