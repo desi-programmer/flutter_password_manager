@@ -2,11 +2,13 @@
 
 Password manager
     - Support Local Storage Only as of now
+    - Not for web 
+    - You can easily add Custom Backend
 
 Security
     - need to re-authenticate every time app is launched
         - Won't be visible in recent - activity
-    - Local Auth ( Bio )
+    - Local Authentication ( Bio )
     - Database is encrypted 
     - Passwords are encrypted
     - App Level security

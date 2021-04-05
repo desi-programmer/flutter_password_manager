@@ -4,7 +4,6 @@ import 'package:flutter/services.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
 class EncryptService {
-  // final key = ENCRYPT.Key.fromUtf8('WlFsdCYyJPPmKAVeA9ir+A==');
   final iv = ENCRYPT.IV.fromLength(16);
 
   final encrypter = ENCRYPT.Encrypter(
@@ -13,7 +12,15 @@ class EncryptService {
     ),
   );
 
-  void encrypt() {}
+  String encrypt(String password) {
+    final key = ENCRYPT.Key.fromUtf8('WlFsdCYyJPPmKAVeA9ir+A==');
+    final iv = ENCRYPT.IV.fromLength(16);
+
+    final encrypter = ENCRYPT.Encrypter(ENCRYPT.AES(key));
+
+    final encrypted = encrypter.encrypt(password, iv: iv);
+    return encrypted.base64;
+  }
 
   void copyToClipboard(String decryptedPassword, BuildContext context) {
     final decrypted = encrypter.decrypt(
@@ -32,7 +39,7 @@ class EncryptService {
       toastLength: Toast.LENGTH_SHORT,
       gravity: ToastGravity.CENTER,
       timeInSecForIosWeb: 1,
-      backgroundColor: Colors.black,
+      backgroundColor: Colors.black87,
       textColor: Colors.white,
       fontSize: 18.0,
     );

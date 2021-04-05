@@ -21,12 +21,10 @@ void main() async {
   var encryptionKey = base64Url.decode(await secureStorage.read(key: 'key'));
   print('Encryption key: $encryptionKey');
 
-  var encryptedBox = await Hive.openBox(
+  await Hive.openBox(
     'passwords',
     encryptionCipher: HiveAesCipher(encryptionKey),
   );
-  // encryptedBox.put('secret', 'Hive is cool');
-  // print(encryptedBox.get('secret'));
   runApp(MyApp());
 }
 
@@ -57,7 +55,6 @@ class FingerPrintAuth extends StatefulWidget {
 class _FingerPrintAuthState extends State<FingerPrintAuth> {
   bool authenticated = false;
   void authenticate() async {
-    print("Calling LOG !");
     try {
       var localAuth = LocalAuthentication();
       authenticated = await localAuth.authenticate(
@@ -73,7 +70,6 @@ class _FingerPrintAuthState extends State<FingerPrintAuth> {
         );
       } else {
         setState(() {});
-        print(authenticated);
       }
     } catch (e) {
       if (e.code == "NotAvailable") {
@@ -99,7 +95,6 @@ class _FingerPrintAuthState extends State<FingerPrintAuth> {
           ),
         );
       }
-      print(e.code);
     }
   }
 

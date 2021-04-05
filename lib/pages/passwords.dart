@@ -10,6 +10,7 @@ class Passwords extends StatefulWidget {
 
 class _PasswordsState extends State<Passwords> {
   Box box = Hive.box('passwords');
+  bool longPressed = false;
   EncryptService _encryptService = new EncryptService();
   Future fetch() async {
     if (box.values.isEmpty) {
@@ -58,9 +59,7 @@ class _PasswordsState extends State<Passwords> {
             return ListView.builder(
               itemCount: snapshot.data.length,
               itemBuilder: (context, index) {
-                // Map data = snapshot.data[index];
                 Map data = box.getAt(index);
-                print(data);
                 return Card(
                   margin: EdgeInsets.all(
                     12.0,
@@ -71,7 +70,8 @@ class _PasswordsState extends State<Passwords> {
                       horizontal: 20.0,
                     ),
                     leading: Icon(
-                      Icons.verified_user_outlined,
+                      Icons.vpn_key_rounded,
+                      size: 36.0,
                     ),
                     title: Text(
                       "${data['type']}",
@@ -90,7 +90,9 @@ class _PasswordsState extends State<Passwords> {
                     trailing: IconButton(
                       onPressed: () {
                         _encryptService.copyToClipboard(
-                            data['password'], context);
+                          data['password'],
+                          context,
+                        );
                       },
                       icon: Icon(
                         Icons.copy_rounded,
@@ -196,16 +198,7 @@ class _PasswordsState extends State<Passwords> {
                 onPressed: () {
                   // encrypt
 
-                  final plainText = 'password1234';
-                  final key = ENCRYPT.Key.fromUtf8('WlFsdCYyJPPmKAVeA9ir+A==');
-                  final iv = ENCRYPT.IV.fromLength(16);
-
-                  final encrypter = ENCRYPT.Encrypter(ENCRYPT.AES(key));
-
-                  final encrypted = encrypter.encrypt(password, iv: iv);
-                  final decrypted = encrypter.decrypt(encrypted, iv: iv);
-                  print(encrypted.base64);
-                  print(decrypted);
+                  password = _encryptService.encrypt(password);
 
                   // insert into db
                   Box box = Hive.box('passwords');
@@ -214,7 +207,7 @@ class _PasswordsState extends State<Passwords> {
                   var value = {
                     'type': type,
                     'email': email,
-                    'password': encrypted.base64,
+                    'password': password,
                   };
                   box.add(value);
 
