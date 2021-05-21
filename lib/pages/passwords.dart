@@ -1,4 +1,3 @@
-import 'package:encrypt/encrypt.dart' as ENCRYPT;
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
 import 'package:password_manager/controller/encrypter.dart';
