@@ -53,7 +53,16 @@ class _PasswordsState extends State<Passwords> {
         future: fetch(),
         builder: (context, snapshot) {
           if (snapshot.data == null) {
-            return Text("No Value !");
+            return Center(
+              child: Text(
+                "You have saved no password 😓.\nSave some... \nIt's Secure 🔐.\nEverything is in your Phone..",
+                style: TextStyle(
+                  fontSize: 22.0,
+                  fontFamily: "customFont",
+                ),
+                textAlign: TextAlign.center,
+              ),
+            );
           } else {
             return ListView.builder(
               itemCount: snapshot.data.length,
@@ -196,12 +205,9 @@ class _PasswordsState extends State<Passwords> {
               ElevatedButton(
                 onPressed: () {
                   // encrypt
-
                   password = _encryptService.encrypt(password);
-
                   // insert into db
                   Box box = Hive.box('passwords');
-
                   // insert
                   var value = {
                     'type': type,
