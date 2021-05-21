@@ -10,7 +10,8 @@
     1. Your password String is Encrypted itself.
     2. The Entire Database is encrypted.
     3. Uses Your Phone's Local Bio (Fingerprint) auth.
-        - Also it is single-time Allow only, which means if you press home or back, You will have to re-authenticate.
+        - Also it is single-time Allow only, 
+        which means if you press home or back, You will have to re-authenticate.
 
 # Security 
     - need to re-authenticate every time app is launched
