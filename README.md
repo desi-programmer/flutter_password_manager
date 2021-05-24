@@ -21,6 +21,11 @@
     - Passwords are encrypted
     - App Level security
 
+# Todos
+    - add Delete
+    - add Edit
+    - add a text-auto-fill for correctly mapping icons to service
+
 
 # Screenshots
 
