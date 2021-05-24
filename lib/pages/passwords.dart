@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:hive/hive.dart';
 import 'package:password_manager/controller/encrypter.dart';
+import 'package:password_manager/icons_map.dart' as CustomIcons;
 
 class Passwords extends StatefulWidget {
   @override
@@ -28,6 +30,7 @@ class _PasswordsState extends State<Passwords> {
           "Your Passwords",
           style: TextStyle(
             fontFamily: "customFont",
+            fontSize: 22.0,
           ),
         ),
       ),
@@ -72,41 +75,64 @@ class _PasswordsState extends State<Passwords> {
                   margin: EdgeInsets.all(
                     12.0,
                   ),
-                  child: ListTile(
-                    contentPadding: EdgeInsets.symmetric(
-                      vertical: 12.0,
-                      horizontal: 20.0,
-                    ),
-                    leading: Icon(
-                      Icons.vpn_key_rounded,
-                      size: 36.0,
-                    ),
-                    title: Text(
-                      "${data['type']}",
-                      style: TextStyle(
-                        fontSize: 22.0,
-                        fontFamily: "customFont",
+                  child: Slidable(
+                    actionPane: SlidableDrawerActionPane(),
+                    actionExtentRatio: 0.25,
+                    child: ListTile(
+                      contentPadding: EdgeInsets.symmetric(
+                        vertical: 12.0,
+                        horizontal: 20.0,
+                      ),
+                      tileColor: Color(0xff1c1c1c),
+                      leading: CustomIcons.icons[data['type']] ??
+                          Icon(
+                            Icons.lock,
+                            size: 32.0,
+                          ),
+                      title: Text(
+                        "${data['nick']}",
+                        style: TextStyle(
+                          fontSize: 22.0,
+                          fontFamily: "customFont",
+                        ),
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                      ),
+                      subtitle: Text(
+                        "CLick on the copy icon to copy your Password !",
+                        style: TextStyle(
+                          fontSize: 16.0,
+                          fontFamily: "customFont",
+                        ),
+                      ),
+                      trailing: IconButton(
+                        onPressed: () {
+                          _encryptService.copyToClipboard(
+                            data['password'],
+                            context,
+                          );
+                        },
+                        icon: Icon(
+                          Icons.copy_rounded,
+                          size: 36.0,
+                        ),
                       ),
                     ),
-                    subtitle: Text(
-                      "CLick on the copy icon to copy your Password !",
-                      style: TextStyle(
-                        fontSize: 16.0,
-                        fontFamily: "customFont",
+                    secondaryActions: <Widget>[
+                      IconSlideAction(
+                        caption: 'Edit',
+                        color: Colors.black45,
+                        icon: Icons.edit,
+                        onTap: () {},
                       ),
-                    ),
-                    trailing: IconButton(
-                      onPressed: () {
-                        _encryptService.copyToClipboard(
-                          data['password'],
-                          context,
-                        );
-                      },
-                      icon: Icon(
-                        Icons.copy_rounded,
-                        size: 36.0,
+                      IconSlideAction(
+                        closeOnTap: true,
+                        caption: 'Delete',
+                        color: Colors.red,
+                        icon: Icons.delete,
+                        onTap: () {},
                       ),
-                    ),
+                    ],
                   ),
                 );
               },
@@ -119,6 +145,7 @@ class _PasswordsState extends State<Passwords> {
 
   void insertDB() {
     String type;
+    String nick;
     String email;
     String password;
     showModalBottomSheet(
@@ -144,6 +171,30 @@ class _PasswordsState extends State<Passwords> {
                 ),
                 onChanged: (val) {
                   type = val;
+                },
+                validator: (val) {
+                  if (val.trim().isEmpty) {
+                    return "Enter A Value !";
+                  } else {
+                    return null;
+                  }
+                },
+              ),
+              SizedBox(
+                height: 12.0,
+              ),
+              TextFormField(
+                decoration: InputDecoration(
+                  border: OutlineInputBorder(),
+                  labelText: "Nick Name",
+                  hintText: "Will be dispplayed as a Title",
+                ),
+                style: TextStyle(
+                  fontSize: 18.0,
+                  fontFamily: "customFont",
+                ),
+                onChanged: (val) {
+                  nick = val;
                 },
                 validator: (val) {
                   if (val.trim().isEmpty) {
@@ -210,7 +261,8 @@ class _PasswordsState extends State<Passwords> {
                   Box box = Hive.box('passwords');
                   // insert
                   var value = {
-                    'type': type,
+                    'type': type.toLowerCase(),
+                    'nick': nick,
                     'email': email,
                     'password': password,
                   };

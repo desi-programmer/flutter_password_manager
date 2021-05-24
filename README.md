@@ -38,7 +38,7 @@
 ## SOCIAL
 
 
-[Facebook 🧡](https://www.facebook.com/desiprogrammerprince)
+[Facebook 🧡](https://www.facebook.com/desiprogrammerofficial)
 
 [Instagram](https://www.instagram.com/desiprogrammer/)
 
@@ -48,9 +48,7 @@
 
   
 # Data
-
-- type
-
-- username/email
-
-- password
+    - type
+    - nick
+    - username/email
+    - password
