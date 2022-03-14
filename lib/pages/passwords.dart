@@ -151,146 +151,153 @@ class _PasswordsState extends State<Passwords> {
     showModalBottomSheet(
       context: context,
       isScrollControlled: true,
-      builder: (context) => Container(
-        padding: EdgeInsets.all(
-          12.0,
-        ),
-        child: Form(
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              TextFormField(
-                decoration: InputDecoration(
-                  border: OutlineInputBorder(),
-                  labelText: "Service",
-                  hintText: "Google",
-                ),
-                style: TextStyle(
-                  fontSize: 18.0,
-                  fontFamily: "customFont",
-                ),
-                onChanged: (val) {
-                  type = val;
-                },
-                validator: (val) {
-                  if (val.trim().isEmpty) {
-                    return "Enter A Value !";
-                  } else {
-                    return null;
-                  }
-                },
-              ),
-              SizedBox(
-                height: 12.0,
-              ),
-              TextFormField(
-                decoration: InputDecoration(
-                  border: OutlineInputBorder(),
-                  labelText: "Nick Name",
-                  hintText: "Will be dispplayed as a Title",
-                ),
-                style: TextStyle(
-                  fontSize: 18.0,
-                  fontFamily: "customFont",
-                ),
-                onChanged: (val) {
-                  nick = val;
-                },
-                validator: (val) {
-                  if (val.trim().isEmpty) {
-                    return "Enter A Value !";
-                  } else {
-                    return null;
-                  }
-                },
-              ),
-              SizedBox(
-                height: 12.0,
-              ),
-              TextFormField(
-                decoration: InputDecoration(
-                  border: OutlineInputBorder(),
-                  labelText: "Username/Email/Phone",
-                ),
-                style: TextStyle(
-                  fontSize: 18.0,
-                  fontFamily: "customFont",
-                ),
-                onChanged: (val) {
-                  email = val;
-                },
-                validator: (val) {
-                  if (val.trim().isEmpty) {
-                    return "Enter A Value !";
-                  } else {
-                    return null;
-                  }
-                },
-              ),
-              SizedBox(
-                height: 12.0,
-              ),
-              TextFormField(
-                decoration: InputDecoration(
-                  border: OutlineInputBorder(),
-                  labelText: "Password",
-                ),
-                style: TextStyle(
-                  fontSize: 18.0,
-                  fontFamily: "customFont",
-                ),
-                onChanged: (val) {
-                  password = val;
-                },
-                validator: (val) {
-                  if (val.trim().isEmpty) {
-                    return "Enter A Value !";
-                  } else {
-                    return null;
-                  }
-                },
-              ),
-              SizedBox(
-                height: 12.0,
-              ),
-              ElevatedButton(
-                onPressed: () {
-                  // encrypt
-                  password = _encryptService.encrypt(password);
-                  // insert into db
-                  Box box = Hive.box('passwords');
-                  // insert
-                  var value = {
-                    'type': type.toLowerCase(),
-                    'nick': nick,
-                    'email': email,
-                    'password': password,
-                  };
-                  box.add(value);
-
-                  Navigator.of(context).pop();
-                  setState(() {});
-                },
-                child: Text(
-                  "Save",
+      builder: (context) => Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 18),
+        child: Container(
+          padding: EdgeInsets.all(
+            12.0,
+          ),
+          child: Form(
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                TextFormField(
+                  decoration: InputDecoration(
+                    border: OutlineInputBorder(),
+                    labelText: "Service",
+                    hintText: "Google",
+                  ),
                   style: TextStyle(
-                    fontSize: 20.0,
+                    fontSize: 18.0,
                     fontFamily: "customFont",
                   ),
+                  onChanged: (val) {
+                    type = val;
+                  },
+                  validator: (val) {
+                    if (val.trim().isEmpty) {
+                      return "Enter A Value !";
+                    } else {
+                      return null;
+                    }
+                  },
                 ),
-                style: ButtonStyle(
-                  padding: MaterialStateProperty.all(
-                    EdgeInsets.symmetric(
-                      vertical: 12.0,
-                      horizontal: 50.0,
+                SizedBox(
+                  height: 12.0,
+                ),
+                TextFormField(
+                  decoration: InputDecoration(
+                    border: OutlineInputBorder(),
+                    labelText: "Nick Name",
+                    hintText: "Will be dispplayed as a Title",
+                  ),
+                  style: TextStyle(
+                    fontSize: 18.0,
+                    fontFamily: "customFont",
+                  ),
+                  onChanged: (val) {
+                    nick = val;
+                  },
+                  validator: (val) {
+                    if (val.trim().isEmpty) {
+                      return "Enter A Value !";
+                    } else {
+                      return null;
+                    }
+                  },
+                ),
+                SizedBox(
+                  height: 12.0,
+                ),
+                TextFormField(
+                  decoration: InputDecoration(
+                    border: OutlineInputBorder(),
+                    labelText: "Username/Email/Phone",
+                  ),
+                  style: TextStyle(
+                    fontSize: 18.0,
+                    fontFamily: "customFont",
+                  ),
+                  onChanged: (val) {
+                    email = val;
+                  },
+                  validator: (val) {
+                    if (val.trim().isEmpty) {
+                      return "Enter A Value !";
+                    } else {
+                      return null;
+                    }
+                  },
+                ),
+                SizedBox(
+                  height: 12.0,
+                ),
+                TextFormField(
+                  decoration: InputDecoration(
+                    border: OutlineInputBorder(),
+                    labelText: "Password",
+                  ),
+                  style: TextStyle(
+                    fontSize: 18.0,
+                    fontFamily: "customFont",
+                  ),
+                  onChanged: (val) {
+                    password = val;
+                  },
+                  validator: (val) {
+                    if (val.trim().isEmpty) {
+                      return "Enter A Value !";
+                    } else {
+                      return null;
+                    }
+                  },
+                ),
+                SizedBox(
+                  height: 12.0,
+                ),
+                ElevatedButton(
+                  onPressed: () {
+                    // encrypt
+                    password = _encryptService.encrypt(password);
+                    // insert into db
+                    Box box = Hive.box('passwords');
+                    // insert
+                    var value = {
+                      'type': type.toLowerCase(),
+                      'nick': nick,
+                      'email': email,
+                      'password': password,
+                    };
+                    box.add(value);
+
+                    Navigator.of(context).pop();
+                    setState(() {});
+                  },
+                  child: Text(
+                    "Save",
+                    style: TextStyle(
+                      fontSize: 20.0,
+                      fontFamily: "customFont",
                     ),
                   ),
-                  backgroundColor: MaterialStateProperty.all(
-                    Color(0xff892cdc),
+                  style: ButtonStyle(
+                    padding: MaterialStateProperty.all(
+                      EdgeInsets.symmetric(
+                        vertical: 12.0,
+                        horizontal: 50.0,
+                      ),
+                    ),
+                    backgroundColor: MaterialStateProperty.all(
+                      Color(0xff892cdc),
+                    ),
                   ),
                 ),
-              ),
-            ],
+                Padding(
+                  padding: EdgeInsets.only(
+                      bottom: MediaQuery.of(context).viewInsets.bottom),
+                )
+              ],
+            ),
           ),
         ),
       ),
