@@ -2,11 +2,11 @@
 
 ## TODO
 
--[ ] Fix UI inconsistency. 
+- [ ] Fix UI inconsistency. 
 
--[ ] Add Null Safety
+- [ ] Add Null Safety
 
--[ ] Push Code to another branch and add maaster/main branch with Model and Provider.
+- [ ] Push Code to another branch and add maaster/main branch with Model and Provider.
 
  A Password manager coded entirely in Flutter that used Three layers of security. It saves password in your Phone's local Storage, thus no issue of data Leak from a server. 
 
