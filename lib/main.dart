@@ -1,7 +1,6 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
-import 'package:hive/hive.dart';
 import 'package:local_auth/local_auth.dart';
 import 'package:password_manager/pages/passwords.dart';
 import 'package:hive_flutter/hive_flutter.dart';
@@ -35,13 +34,26 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Password Manager',
-      theme: ThemeData.dark().copyWith(
+      darkTheme: ThemeData(
         primaryColor: Color(0xff892cdc),
-        accentColor: Colors.purpleAccent,
         scaffoldBackgroundColor: Color(0xff151515),
+        appBarTheme: AppBarTheme(
+          backgroundColor: Color(0xff151515),
+        ),
+        primaryColorDark: Colors.purple,
         textTheme: TextTheme().apply(
           fontFamily: "customFont",
         ),
+        fontFamily: "customFont",
+      ),
+      themeMode: ThemeMode.dark,
+      theme: ThemeData(
+        primaryColor: Color(0xff892cdc),
+        primaryColorDark: Colors.purple,
+        textTheme: TextTheme().apply(
+          fontFamily: "customFont",
+        ),
+        fontFamily: "customFont",
       ),
       home: FingerPrintAuth(),
     );
@@ -137,14 +149,17 @@ class _FingerPrintAuthState extends State<FingerPrintAuth> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  Text(
-                    "Oh Snap ! You Need to authenticate to move forward.",
-                    style: TextStyle(
-                      fontSize: 32.0,
-                      fontFamily: "keepcalm",
-                      fontWeight: FontWeight.w800,
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Text(
+                      "Oh Snap ! You Need to authenticate to move forward.",
+                      style: TextStyle(
+                        fontSize: 24.0,
+                        color: Colors.grey,
+                        fontWeight: FontWeight.w800,
+                      ),
+                      textAlign: TextAlign.center,
                     ),
-                    textAlign: TextAlign.center,
                   ),
                   //
                   SizedBox(

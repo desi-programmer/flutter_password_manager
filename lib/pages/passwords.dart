@@ -61,6 +61,7 @@ class _PasswordsState extends State<Passwords> {
                 "You have saved no password 😓.\nSave some... \nIt's Secure 🔐.\nEverything is in your Phone..",
                 style: TextStyle(
                   fontSize: 22.0,
+                  color: Colors.grey,
                   fontFamily: "customFont",
                 ),
                 textAlign: TextAlign.center,
@@ -76,8 +77,6 @@ class _PasswordsState extends State<Passwords> {
                     12.0,
                   ),
                   child: Slidable(
-                    actionPane: SlidableDrawerActionPane(),
-                    actionExtentRatio: 0.25,
                     child: ListTile(
                       contentPadding: EdgeInsets.symmetric(
                         vertical: 12.0,
@@ -93,6 +92,7 @@ class _PasswordsState extends State<Passwords> {
                         "${data['nick']}",
                         style: TextStyle(
                           fontSize: 22.0,
+                          color: Colors.grey,
                           fontFamily: "customFont",
                         ),
                         maxLines: 1,
@@ -102,6 +102,7 @@ class _PasswordsState extends State<Passwords> {
                         "CLick on the copy icon to copy your Password !",
                         style: TextStyle(
                           fontSize: 16.0,
+                          color: Colors.grey,
                           fontFamily: "customFont",
                         ),
                       ),
@@ -118,21 +119,17 @@ class _PasswordsState extends State<Passwords> {
                         ),
                       ),
                     ),
-                    secondaryActions: <Widget>[
-                      IconSlideAction(
-                        caption: 'Edit',
-                        color: Colors.black45,
-                        icon: Icons.edit,
-                        onTap: () {},
-                      ),
-                      IconSlideAction(
-                        closeOnTap: true,
-                        caption: 'Delete',
-                        color: Colors.red,
-                        icon: Icons.delete,
-                        onTap: () {},
-                      ),
-                    ],
+                    startActionPane: ActionPane(
+                      motion: const DrawerMotion(),
+                      children: [
+                        SlidableAction(
+                          label: 'Delete',
+                          backgroundColor: Colors.red,
+                          icon: Icons.delete,
+                          onPressed: (context) {},
+                        ),
+                      ],
+                    ),
                   ),
                 );
               },
@@ -151,153 +148,154 @@ class _PasswordsState extends State<Passwords> {
     showModalBottomSheet(
       context: context,
       isScrollControlled: true,
-      builder: (context) => Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 18),
-        child: Container(
-          padding: EdgeInsets.all(
-            12.0,
-          ),
-          child: Form(
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                TextFormField(
-                  decoration: InputDecoration(
-                    border: OutlineInputBorder(),
-                    labelText: "Service",
-                    hintText: "Google",
-                  ),
-                  style: TextStyle(
-                    fontSize: 18.0,
-                    fontFamily: "customFont",
-                  ),
-                  onChanged: (val) {
-                    type = val;
-                  },
-                  validator: (val) {
-                    if (val.trim().isEmpty) {
-                      return "Enter A Value !";
-                    } else {
-                      return null;
-                    }
-                  },
+      builder: (context) => Container(
+        padding: EdgeInsets.all(
+          12.0,
+        ),
+        decoration: BoxDecoration(
+          color: Colors.black87,
+        ),
+        child: Form(
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              TextFormField(
+                decoration: InputDecoration(
+                  border: OutlineInputBorder(),
+                  labelText: "Service",
+                  hintText: "Google",
                 ),
-                SizedBox(
-                  height: 12.0,
+                style: TextStyle(
+                  fontSize: 18.0,
+                  fontFamily: "customFont",
                 ),
-                TextFormField(
-                  decoration: InputDecoration(
-                    border: OutlineInputBorder(),
-                    labelText: "Nick Name",
-                    hintText: "Will be dispplayed as a Title",
-                  ),
-                  style: TextStyle(
-                    fontSize: 18.0,
-                    fontFamily: "customFont",
-                  ),
-                  onChanged: (val) {
-                    nick = val;
-                  },
-                  validator: (val) {
-                    if (val.trim().isEmpty) {
-                      return "Enter A Value !";
-                    } else {
-                      return null;
-                    }
-                  },
+                onChanged: (val) {
+                  type = val;
+                },
+                validator: (val) {
+                  if (val.trim().isEmpty) {
+                    return "Enter A Value !";
+                  } else {
+                    return null;
+                  }
+                },
+              ),
+              SizedBox(
+                height: 12.0,
+              ),
+              TextFormField(
+                decoration: InputDecoration(
+                  border: OutlineInputBorder(),
+                  labelText: "Nick Name",
+                  hintText: "Will be dispplayed as a Title",
                 ),
-                SizedBox(
-                  height: 12.0,
+                style: TextStyle(
+                  fontSize: 18.0,
+                  fontFamily: "customFont",
                 ),
-                TextFormField(
-                  decoration: InputDecoration(
-                    border: OutlineInputBorder(),
-                    labelText: "Username/Email/Phone",
-                  ),
-                  style: TextStyle(
-                    fontSize: 18.0,
-                    fontFamily: "customFont",
-                  ),
-                  onChanged: (val) {
-                    email = val;
-                  },
-                  validator: (val) {
-                    if (val.trim().isEmpty) {
-                      return "Enter A Value !";
-                    } else {
-                      return null;
-                    }
-                  },
+                onChanged: (val) {
+                  nick = val;
+                },
+                validator: (val) {
+                  if (val.trim().isEmpty) {
+                    return "Enter A Value !";
+                  } else {
+                    return null;
+                  }
+                },
+              ),
+              SizedBox(
+                height: 12.0,
+              ),
+              TextFormField(
+                decoration: InputDecoration(
+                  border: OutlineInputBorder(),
+                  labelText: "Username/Email/Phone",
                 ),
-                SizedBox(
-                  height: 12.0,
+                style: TextStyle(
+                  fontSize: 18.0,
+                  fontFamily: "customFont",
                 ),
-                TextFormField(
-                  decoration: InputDecoration(
-                    border: OutlineInputBorder(),
-                    labelText: "Password",
-                  ),
-                  style: TextStyle(
-                    fontSize: 18.0,
-                    fontFamily: "customFont",
-                  ),
-                  onChanged: (val) {
-                    password = val;
-                  },
-                  validator: (val) {
-                    if (val.trim().isEmpty) {
-                      return "Enter A Value !";
-                    } else {
-                      return null;
-                    }
-                  },
+                onChanged: (val) {
+                  email = val;
+                },
+                validator: (val) {
+                  if (val.trim().isEmpty) {
+                    return "Enter A Value !";
+                  } else {
+                    return null;
+                  }
+                },
+              ),
+              SizedBox(
+                height: 12.0,
+              ),
+              TextFormField(
+                decoration: InputDecoration(
+                  border: OutlineInputBorder(),
+                  labelText: "Password",
                 ),
-                SizedBox(
-                  height: 12.0,
+                style: TextStyle(
+                  fontSize: 18.0,
+                  fontFamily: "customFont",
                 ),
-                ElevatedButton(
-                  onPressed: () {
-                    // encrypt
-                    password = _encryptService.encrypt(password);
-                    // insert into db
-                    Box box = Hive.box('passwords');
-                    // insert
-                    var value = {
-                      'type': type.toLowerCase(),
-                      'nick': nick,
-                      'email': email,
-                      'password': password,
-                    };
-                    box.add(value);
+                onChanged: (val) {
+                  password = val;
+                },
+                validator: (val) {
+                  if (val.trim().isEmpty) {
+                    return "Enter A Value !";
+                  } else {
+                    return null;
+                  }
+                },
+              ),
+              SizedBox(
+                height: 12.0,
+              ),
+              ElevatedButton(
+                onPressed: () {
+                  // encrypt
+                  password = _encryptService.encrypt(password);
+                  // insert into db
+                  Box box = Hive.box('passwords');
+                  // insert
+                  var value = {
+                    'type': type.toLowerCase(),
+                    'nick': nick,
+                    'email': email,
+                    'password': password,
+                  };
+                  box.add(value);
 
-                    Navigator.of(context).pop();
-                    setState(() {});
-                  },
-                  child: Text(
-                    "Save",
-                    style: TextStyle(
-                      fontSize: 20.0,
-                      fontFamily: "customFont",
-                    ),
-                  ),
-                  style: ButtonStyle(
-                    padding: MaterialStateProperty.all(
-                      EdgeInsets.symmetric(
-                        vertical: 12.0,
-                        horizontal: 50.0,
-                      ),
-                    ),
-                    backgroundColor: MaterialStateProperty.all(
-                      Color(0xff892cdc),
-                    ),
+                  Navigator.of(context).pop();
+                  setState(() {});
+                },
+                child: Text(
+                  "Save",
+                  style: TextStyle(
+                    fontSize: 20.0,
+                    fontFamily: "customFont",
                   ),
                 ),
-                Padding(
-                  padding: EdgeInsets.only(
-                      bottom: MediaQuery.of(context).viewInsets.bottom),
-                )
-              ],
-            ),
+                style: ButtonStyle(
+                  padding: MaterialStateProperty.all(
+                    EdgeInsets.symmetric(
+                      vertical: 12.0,
+                      horizontal: 50.0,
+                    ),
+                  ),
+                  backgroundColor: MaterialStateProperty.all(
+                    Color(0xff892cdc),
+                  ),
+                ),
+              ),
+              Padding(
+                padding: EdgeInsets.only(
+                  bottom: MediaQuery.of(context).viewInsets.bottom,
+                ),
+              )
+            ],
           ),
         ),
       ),
