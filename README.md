@@ -1,5 +1,13 @@
 # Flutter Password Manager
 
+## TODO
+
+-[ ] Fix UI inconsistency. 
+
+-[ ] Add Null Safety
+
+-[ ] Push Code to another branch and add maaster/main branch with Model and Provider.
+
  A Password manager coded entirely in Flutter that used Three layers of security. It saves password in your Phone's local Storage, thus no issue of data Leak from a server. 
 
     - Support Local Storage Only as of now
